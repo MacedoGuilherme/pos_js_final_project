@@ -1,4 +1,4 @@
-const customer = require("../controller/customer");
+const customer = require("../controller/game");
 const conectar = require("../repository/config");
 
 module.exports = (customer, callback) => {

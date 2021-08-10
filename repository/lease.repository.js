@@ -1,7 +1,7 @@
 const list = require("../services/list")
 const totalLeases = require("../services/totalLeases");
 const findUser = require("../services/findUser");
-const register = require("../services/register");
+const registerCustomer = require("../services/registerCustomer");
 const changeEmail = require("../services/changeEmail");
 const deleteLease = require("../services/deleteLease");
 
@@ -11,7 +11,7 @@ module.exports = () => {
   repository.list = list;
   repository.totalLeases = totalLeases;
   repository.findUser = findUser;
-  repository.register = register;
+  repository.registerCustomer = registerCustomer;
   repository.changeEmail = changeEmail;
   repository.deleteLease = deleteLease;
 
