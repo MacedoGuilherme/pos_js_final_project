@@ -1,6 +1,6 @@
 const conectar = require("../repository/config");
 
-module.exports = (lease, callback) => {
+module.exports = (game, callback) => {
   const connection = conectar((connection, err) => {
     if (err) {
       const error = new Error();
@@ -10,7 +10,7 @@ module.exports = (lease, callback) => {
       return callback(null, error);
     }
 
-    connection.query(`INSERT INTO LEASE SET ?`, lease, function (err, res) {
+    connection.query(`INSERT INTO GAME SET ?`, game, function (err, res) {
       if (err) {
         console.log(err);
         return;

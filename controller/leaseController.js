@@ -44,7 +44,7 @@ module.exports = () => {
     });
   };
 
-  leasesController.register = (req, res, callback) => {
+  leasesController.registerCustomer = (req, res, callback) => {
     const lease = req.body;
     const { cpf } = lease;
 
@@ -60,7 +60,7 @@ module.exports = () => {
 
     request(requestCpf, (error, response, body) => {
       if (body !== '"CPF inválido"') {
-        leaseRep.register(lease, (leases, err) => {
+        leaseRep.registerCustomer(lease, (leases, err) => {
           if (err) {
             return callback(err);
           }
