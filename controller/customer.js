@@ -1,11 +1,11 @@
 const request = require("request");
-const leaseRep = require("../repository/lease.repository")();
+const customerRep = require("../repository/customer.repository")();
 
 module.exports = () => {
-  const leasesController = {};
+  const customers = {};
 
-  leasesController.list = (req, res, callback) => {
-    leaseRep.list((leases, err) => {
+  customers.list = (req, res, callback) => {
+    customerRep.list((leases, err) => {
       if (err) {
         return callback(err);
       }
@@ -13,14 +13,14 @@ module.exports = () => {
     });
   };
 
-  leasesController.finduser = (req, res, callback) => {
+  customers.finduser = (req, res, callback) => {
     const cpf = req.body.cpf;
 
     if (!cpf) {
       throw { httpStatusCode: 400, code: 'ERR001', message: 'CPF é obrigatório' };
     }
 
-    leaseRep.findUser(cpf, (user, err) => {
+    customerRep.findUser(cpf, (user, err) => {
       // if (callback.length !== 0) {
       //   res.status(200).json(callback);
       // } else {
@@ -33,10 +33,10 @@ module.exports = () => {
     });
   };
 
-  leasesController.totalleases = (req, res, callback) => {
+  customers.totalleases = (req, res, callback) => {
     const customer = req.body.customer;
 
-    leaseRep.totalLeases(customer, (total, err) => {
+    customerRep.totalLeases(customer, (total, err) => {
       if (err) {
         return callback(err);
       }
@@ -44,7 +44,7 @@ module.exports = () => {
     });
   };
 
-  leasesController.registerCustomer = (req, res, callback) => {
+  customers.registerCustomer = (req, res, callback) => {
     const lease = req.body;
     const { cpf } = lease;
 
@@ -60,7 +60,7 @@ module.exports = () => {
 
     request(requestCpf, (error, response, body) => {
       if (body !== '"CPF inválido"') {
-        leaseRep.registerCustomer(lease, (leases, err) => {
+        customerRep.registerCustomer(lease, (leases, err) => {
           if (err) {
             return callback(err);
           }
@@ -72,10 +72,10 @@ module.exports = () => {
     });
   };
 
-  leasesController.changeemail = (req, res, callback) => {
+  customers.changeemail = (req, res, callback) => {
     const customer = req.body;
 
-    leaseRep.changeEmail(customer, (callback2, err) => {
+    customerRep.changeEmail(customer, (callback2, err) => {
       if (err) {
         return callback(err);
       }
@@ -88,10 +88,10 @@ module.exports = () => {
     });
   };
 
-  leasesController.deletelease = (req, res, callback) => {
+  customers.deletelease = (req, res, callback) => {
     const id = req.params.id;
 
-    leaseRep.deleteLease(id, (callback2, err) => {
+    customerRep.deleteLease(id, (callback2, err) => {
       if (err) {
         return callback(err);
       }
@@ -100,5 +100,5 @@ module.exports = () => {
     });
   };
 
-  return leasesController;
+  return customers;
 };

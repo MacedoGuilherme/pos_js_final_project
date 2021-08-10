@@ -1,7 +1,8 @@
-const lease = require("../controller/lease");
 const conectar = require("../repository/config");
 
-module.exports = (lease, callback) => {
+module.exports = (req, callback) => {
+  const { id } = req;
+
   const connection = conectar((connection, err) => {
     if (err) {
       const error = new Error();
@@ -10,9 +11,9 @@ module.exports = (lease, callback) => {
       error.code = "ERR003";
       return callback(null, error);
     }
+
     connection.query(
-      `SELECT C.NAME, SUM(L.PRICE) FROM LEASE L LEFT JOIN CUSTOMER C ON C.ID = L.ID_CUSTOMER WHERE NAME = "${customer}"ww;
-      `,
+      "SELECT C.NAME, SUM(L.LEASE_VALUE) FROM LEASE L LEFT JOIN CUSTOMER C ON C.ID = L.ID_CUSTOMER WHERE C.ID = ?;", id ,
       function (err, rows) {
         if (err) {
           console.log(err);
@@ -20,7 +21,6 @@ module.exports = (lease, callback) => {
         }
 
         return callback(rows);
-
       }
     );
   });

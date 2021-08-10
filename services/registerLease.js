@@ -1,6 +1,6 @@
 const conectar = require("../repository/config");
 
-module.exports = (callback) => {
+module.exports = (lease, callback) => {
   const connection = conectar((connection, err) => {
     if (err) {
       const error = new Error();
@@ -10,16 +10,12 @@ module.exports = (callback) => {
       return callback(null, error);
     }
 
-    connection.query(
-      "SELECT L.ID, L.ID_CUSTOMER, C.NAME, L.GAME FROM LEASE L LEFT JOIN CUSTOMER C ON C.ID = L.ID_CUSTOMER",
-      function (err, rows) {
-        if (err) {
-          console.log(err);
-          return;
-        }
-
-        return callback(rows);
+    connection.query(`INSERT INTO LEASE SET ?`, lease, function (err, res) {
+      if (err) {
+        console.log(err);
+        return;
       }
-    );
+      return callback();
+    });
   });
 };
