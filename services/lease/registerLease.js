@@ -1,6 +1,6 @@
-const conectar = require("../repository/config");
+const conectar = require("../../repository/config");
 
-module.exports = (game, callback) => {
+module.exports = (lease, callback) => {
   const connection = conectar((connection, err) => {
     if (err) {
       const error = new Error();
@@ -10,12 +10,12 @@ module.exports = (game, callback) => {
       return callback(null, error);
     }
 
-    connection.query(`INSERT INTO GAME SET ?`, game, function (err, res) {
+    connection.query(`INSERT INTO LEASE SET ?`, lease, function (err, res) {
       if (err) {
         console.log(err);
         return;
       }
-      return callback('Cadastro OK!');
+      return callback();
     });
   });
 };

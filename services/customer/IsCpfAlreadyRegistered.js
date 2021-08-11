@@ -1,7 +1,6 @@
-const conectar = require("../repository/config");
+const conectar = require("../../repository/config");
 
-module.exports = (req, callback) => {
-  const { id } = req;
+module.exports = (cpf, callback) => {
 
   const connection = conectar((connection, err) => {
     if (err) {
@@ -13,14 +12,13 @@ module.exports = (req, callback) => {
     }
 
     connection.query(
-      "SELECT C.NAME, SUM(L.LEASE_VALUE) FROM LEASE L LEFT JOIN CUSTOMER C ON C.ID = L.ID_CUSTOMER WHERE C.ID = ?;", id ,
-      function (err, rows) {
+      `SELECT CPF FROM CUSTOMER WHERE CPF = ?`, cpf,
+      function (err, res) {
         if (err) {
           console.log(err);
           return;
         }
-
-        return callback(rows);
+        return callback(res.length);
       }
     );
   });

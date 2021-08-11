@@ -4,63 +4,40 @@ const customerRep = require("../repository/customer.repository")();
 module.exports = () => {
   const customers = {};
 
-  customers.list = (req, res, callback) => {
-    customerRep.list((leases, err) => {
+  function IsCpfAlreadyRegistered(cpf) {
+    customerRep.IsCpfAlreadyRegistered(cpf, (callback, err) => {
       if (err) {
         return callback(err);
       }
-      res.status(200).json(leases);
-    });
-  };
 
-  customers.finduser = (req, res, callback) => {
-    const cpf = req.body.cpf;
-
-    if (!cpf) {
-      throw { httpStatusCode: 400, code: 'ERR001', message: 'CPF é obrigatório' };
-    }
-
-    customerRep.findUser(cpf, (user, err) => {
-      // if (callback.length !== 0) {
-      //   res.status(200).json(callback);
-      // } else {
-      //   res.status(200).send("Usuário não encontrado!");
-      // }
-      if (err) {
-        return callback(err);
+      if (callback) {
+        throw {
+          httpStatusCode: 400,
+          code: "ERR001",
+          message: "CPF já cadastrado",
+        };
       }
-      res.status(200).json(user);
     });
-  };
-
-  customers.totalleases = (req, res, callback) => {
-    const customer = req.body.customer;
-
-    customerRep.totalLeases(customer, (total, err) => {
-      if (err) {
-        return callback(err);
-      }
-      res.status(200).json(total);
-    });
-  };
+  }
 
   customers.registerCustomer = (req, res, callback) => {
-    const lease = req.body;
-    const { cpf } = lease;
+    const customer = req.body;
+    const { name, cpf, email, phone } = customer;
 
-    if (!cpf) {
+    if (!name || !cpf || !email || !phone) {
       throw {
         httpStatusCode: 400,
-        code: "ERR001",
-        message: "CPF é obrigatório",
+        message: "param is missing or the value is empty: customer",
       };
     }
+
+    // IsCpfAlreadyRegistered(cpf);
 
     const requestCpf = `https://robsonalves-net-br-document-generator-srvapp.azurewebsites.net/api/CPF/isvalid/${cpf}`;
 
     request(requestCpf, (error, response, body) => {
       if (body !== '"CPF inválido"') {
-        customerRep.registerCustomer(lease, (leases, err) => {
+        customerRep.registerCustomer(customer, (leases, err) => {
           if (err) {
             return callback(err);
           }
@@ -72,31 +49,23 @@ module.exports = () => {
     });
   };
 
-  customers.changeemail = (req, res, callback) => {
+  customers.changeCustomer = (req, res, callback) => {
     const customer = req.body;
+    const { name, cpf, email, phone } = customer;
 
-    customerRep.changeEmail(customer, (callback2, err) => {
+    if (!name || !cpf || !email || !phone) {
+      throw {
+        httpStatusCode: 400,
+        message: "param is missing or the value is empty: customer",
+      };
+    }
+
+    customerRep.changeCustomer(customer, (callback2, err) => {
       if (err) {
         return callback(err);
       }
 
-      if (callback2 === 0) {
-        res.status(200).send("CPF não encontrado!");
-      } else {
-        res.status(200).send("Email alterado com sucesso!");
-      }
-    });
-  };
-
-  customers.deletelease = (req, res, callback) => {
-    const id = req.params.id;
-
-    customerRep.deleteLease(id, (callback2, err) => {
-      if (err) {
-        return callback(err);
-      }
-
-      res.status(200).res.send();
+      res.status(200).json();
     });
   };
 
