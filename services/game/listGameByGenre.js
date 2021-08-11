@@ -4,9 +4,8 @@ module.exports = (genre, callback) => {
   const connection = conectar((connection, err) => {
     if (err) {
       const error = new Error();
-      error.message = "Não foi possível conectar ao banco de dados";
+      error.message = "Could not connect to database";
       error.httpStatusCode = 500;
-      error.code = "ERR003";
       return callback(null, error);
     }
 
@@ -21,7 +20,7 @@ module.exports = (genre, callback) => {
 
         if (res.length == 0) {
           const error = new Error();
-          error.message = "Registro não encontrado";
+          error.message = "Register not found";
           error.httpStatusCode = 404;
           return callback(null, error);
         }

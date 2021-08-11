@@ -20,16 +20,16 @@ module.exports = () => {
         return callback(err);
       }
 
-      res.status(200).json("Deu certo!");
+      res.status(200).json(games);
     });
   };
 
   games.changeGame = (req, res, callback) => {
     const game = req.body;
 
-    const { name, genre, platform } = game;
+    const { id, name, genre, platform } = game;
 
-    if (!name || !genre || !platform) {
+    if (!id || !name || !genre || !platform) {
       throw {
         httpStatusCode: 400,
         message: "param is missing or the value is empty: game",

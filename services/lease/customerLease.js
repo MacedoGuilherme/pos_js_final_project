@@ -1,26 +1,42 @@
 const conectar = require("../../repository/config");
 
 module.exports = (req, callback) => {
-  const { id } = req;
+  const { cpf } = req;
 
   const connection = conectar((connection, err) => {
     if (err) {
       const error = new Error();
-      error.message = "Não foi possível conectar ao banco de dados";
+      error.message = "Could not connect to database";
       error.httpStatusCode = 500;
-      error.code = "ERR003";
       return callback(null, error);
     }
 
     connection.query(
-      "SELECT C.NAME, SUM(L.LEASE_VALUE) FROM LEASE L LEFT JOIN CUSTOMER C ON C.ID = L.ID_CUSTOMER WHERE C.ID = ?;", id ,
+      `SELECT C.NAME FROM LEASE L LEFT JOIN CUSTOMER C ON C.ID = L.ID_CUSTOMER WHERE C.CPF = "${cpf}";`,
       function (err, rows) {
         if (err) {
           console.log(err);
           return;
         }
 
-        return callback(rows);
+        if (rows.length != 0) {
+          connection.query(
+            `SELECT C.NAME, SUM(L.LEASE_VALUE) AS TOTAL FROM LEASE L LEFT JOIN CUSTOMER C ON C.ID = L.ID_CUSTOMER WHERE C.CPF = "${cpf}";`,
+            function (err, rows) {
+              if (err) {
+                console.log(err);
+                return;
+              }
+
+              return callback(rows);
+            }
+          );
+        } else {
+          const error = new Error();
+          error.message = "Register not found";
+          error.httpStatusCode = 404;
+          return callback(null, error);
+        }
       }
     );
   });
