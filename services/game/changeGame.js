@@ -1,4 +1,4 @@
-const conectar = require("../repository/config");
+const conectar = require("../../repository/config");
 
 module.exports = (game, callback) => {
   const { id, name, genre, platform, price } = game;
@@ -13,7 +13,7 @@ module.exports = (game, callback) => {
     }
 
     connection.query(
-      `UPDATE GAME SET NAME = ?, GENRE = ?, PLATFORM = ?, PRICE = ? WHERE ID = ${id}`,
+      `UPDATE GAME SET NAME = ?, GENRE = ?, PLATFORM = ? WHERE ID = ${id}`,
       [name, genre, platform, price],
       function (err, res) {
         if (err) {
@@ -25,10 +25,9 @@ module.exports = (game, callback) => {
           const error = new Error();
           error.message = "Registro não encontrado";
           error.httpStatusCode = 404;
-          error.code = "ERR003";
           return callback(null, error);
         }
-        return callback(res.affectedRows);
+        return callback();
       }
     );
   });

@@ -1,8 +1,6 @@
-const conectar = require("../repository/config");
+const conectar = require("../../repository/config");
 
-module.exports = (user, callback) => {
-  const { cpf, newEmail } = user;
-
+module.exports = deletelease = (id, callback) => {
   const connection = conectar((connection, err) => {
     if (err) {
       const error = new Error();
@@ -13,22 +11,22 @@ module.exports = (user, callback) => {
     }
 
     connection.query(
-      `UPDATE CUSTOMER SET EMAIL = ? WHERE CPF = ${cpf}`,
-      newEmail,
+      `DELETE FROM LEASE WHERE ID = ?`,
+      [id],
       function (err, res) {
         if (err) {
           console.log(err);
           return;
         }
 
-        if (res.affectedRows === 0) {
+        if (res.affectedRows == 0) {
           const error = new Error();
           error.message = "Registro não encontrado";
           error.httpStatusCode = 404;
-          error.code = "ERR003";
           return callback(null, error);
         }
-        return callback(res.affectedRows);
+
+        return callback();
       }
     );
   });

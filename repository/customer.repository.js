@@ -1,17 +1,13 @@
-const totalLeases = require("../services/totalLeases");
-const findUser = require("../services/findUser");
-const registerCustomer = require("../services/registerCustomer");
-const changeEmail = require("../services/changeEmail");
-const deleteLease = require("../services/deleteLease");
+const registerCustomer = require("../services/customer/registerCustomer");
+const changeCustomer = require("../services/customer/changeCustomer");
+const IsCpfAlreadyRegistered = require("../services/customer/IsCpfAlreadyRegistered");
 
 module.exports = () => {
   const repository = {};
 
-  repository.totalLeases = totalLeases;
-  repository.findUser = findUser;
   repository.registerCustomer = registerCustomer;
-  repository.changeEmail = changeEmail;
-  repository.deleteLease = deleteLease;
+  repository.changeCustomer = changeCustomer;
+  repository.IsCpfAlreadyRegistered = IsCpfAlreadyRegistered;
 
   return repository;
 };

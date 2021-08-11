@@ -1,6 +1,6 @@
-const conectar = require("../repository/config");
+const conectar = require("../../repository/config");
 
-module.exports = (cpf, callback) => {
+module.exports = deletelease = (id, callback) => {
   const connection = conectar((connection, err) => {
     if (err) {
       const error = new Error();
@@ -11,24 +11,22 @@ module.exports = (cpf, callback) => {
     }
 
     connection.query(
-      `SELECT NAME, CPF, EMAIL, PHONE FROM CUSTOMER WHERE CPF = ?`,
-      cpf,
-      function (err, rows) {
+      `DELETE FROM GAME WHERE ID = ?`,
+      id,
+      function (err, res) {
         if (err) {
           console.log(err);
           return;
         }
 
-        if (Object.values(rows).length === 0) {
+        if (res.affectedRows == 0) {
           const error = new Error();
           error.message = "Registro não encontrado";
           error.httpStatusCode = 404;
-          error.code = "ERR003";
           return callback(null, error);
         }
 
-        connection.end();
-        return callback(rows, null);
+        return callback();
       }
     );
   });

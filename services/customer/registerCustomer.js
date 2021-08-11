@@ -1,4 +1,4 @@
-const conectar = require("../repository/config");
+const conectar = require("../../repository/config");
 
 module.exports = (lease, callback) => {
   const connection = conectar((connection, err) => {
@@ -10,7 +10,7 @@ module.exports = (lease, callback) => {
       return callback(null, error);
     }
 
-    connection.query(`INSERT INTO LEASE SET ?`, lease, function (err, res) {
+    connection.query(`INSERT INTO CUSTOMER SET ?`, lease, function (err, res) {
       if (err) {
         console.log(err);
         return;

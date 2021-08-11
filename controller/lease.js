@@ -26,5 +26,17 @@ module.exports = () => {
     });
   };
 
+  leases.deleteLease = (req, res, callback) => {
+    const id = req.params.id;
+
+    leaseRep.deleteLease(id, (callback2, err) => {
+      if (err) {
+        return callback(err);
+      }
+
+      res.status(200).json(callback2);
+    });
+  };
+
   return leases;
 };
