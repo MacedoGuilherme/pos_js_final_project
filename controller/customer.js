@@ -4,22 +4,6 @@ const customerRep = require("../repository/customer.repository")();
 module.exports = () => {
   const customers = {};
 
-  function IsCpfAlreadyRegistered(cpf) {
-    customerRep.IsCpfAlreadyRegistered(cpf, (callback, err) => {
-      if (err) {
-        return callback(err);
-      }
-
-      if (callback) {
-        throw {
-          httpStatusCode: 400,
-          code: "ERR001",
-          message: "CPF já cadastrado",
-        };
-      }
-    });
-  }
-
   customers.registerCustomer = (req, res, callback) => {
     const customer = req.body;
     const { name, cpf, email, phone } = customer;
