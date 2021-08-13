@@ -50,16 +50,16 @@ Caso seja necessário alterar alguma informação para conexão ao banco de dado
 ### Endpoints
 
 <ul>
-    <li>POST /registercustomer</li>
-    <li>POST /registergame</li>
-    <li>POST /registerlease</li>
-    <li>GET /listgamegenre/:genre</li>
-    <li>GET /listgameplatform/:platform</li>
-    <li>GET /customerlease</li>
-    <li>PUT /changegame</li>
-    <li>PUT /changecustomer</li>
-    <li>DELETE /deletegame/:id</li>
-    <li>DELETE /deletelease/:id</li>
+    <li><a href="#post-registercustomer">POST /registercustomer</a></li>
+    <li><a href="#post-registergame">POST /registergame</a></li>
+    <li><a href="#post-registerlease">POST /registerlease</a></li>
+    <li><a href="#get-listgamegenregenre">GET /listgamegenre/:genre</a></li>
+    <li><a href="#get-listgameplatformplatform">GET /listgameplatform/:platform</a></li>
+    <li><a href="#get-customerlease">GET /customerlease</a></li>
+    <li><a href="#put-changegame">PUT /changegame</a></li>
+    <li><a href="#put-changecustomer">PUT /changecustomer<a></li>
+    <li><a href="#delete-deletegameid">DELETE /deletegame/:id<a></li>
+    <li><a href="#delete-deleteleaseid">DELETE /deletelease/:id<a></li>
 </ul>
 
 ### POST /registercustomer
@@ -153,7 +153,7 @@ status  |    descrição                |             response body
 422     |    locação já cadastrado    |             "message": "lease is already registered"
 
 
-### listgameplatform/:genre
+### GET /listgamegenre/:genre
 
 Retorna os jogos cadastrados, ordenados por categoria.
 
@@ -185,7 +185,7 @@ status  |    descrição                |             response body
 404     |    jogo não encontrado      |             "message": "register not found"
 
 
-### /listgamegenre/:platform
+### GET /listgameplatform/:platform
 
 Retorna os jogos cadastrados ordenados por plataforma.
 
@@ -216,7 +216,7 @@ status  |    descrição                |             response body
 404     |    jogo não encontrado      |             "message": "register not found"
 
 
-### /customerlease
+### GET /customerlease
 
 Retorna o nome do cliente e o valor total das locações do CPF informado.
 
