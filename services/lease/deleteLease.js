@@ -1,4 +1,4 @@
-const conectar = require("../../repository/config");
+const conectar = require("../../database/db");
 
 module.exports = deletelease = (id, callback) => {
   const connection = conectar((connection, err) => {

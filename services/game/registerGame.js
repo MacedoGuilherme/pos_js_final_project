@@ -1,4 +1,4 @@
-const conectar = require("../../repository/config");
+const conectar = require("../../database/db");
 
 module.exports = (game, callback) => {
   const { name, genre, platform } = game;
@@ -22,7 +22,7 @@ module.exports = (game, callback) => {
         if (res.length != 0) {
           const error = new Error();
           error.message = "Game is already registered";
-          error.httpStatusCode = 400;
+          error.httpStatusCode = 422;
           return callback(null, error);
         } else {
           connection.query(`INSERT INTO GAME SET ?`, game, function (err, res) {

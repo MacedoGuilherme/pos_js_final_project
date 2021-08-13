@@ -1,4 +1,4 @@
-const conectar = require("../../repository/config");
+const conectar = require("../../database/db");
 
 module.exports = (user, callback) => {
   const { name, cpf, email, phone } = user;

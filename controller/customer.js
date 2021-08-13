@@ -28,7 +28,7 @@ module.exports = () => {
           res.status(200).json();
         });
       } else {
-        res.status(400).json(body);
+        res.status(401).json({ message: 'CPF is not valid' });
       }
     });
   };

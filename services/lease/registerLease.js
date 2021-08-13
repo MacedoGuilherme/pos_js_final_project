@@ -1,4 +1,4 @@
-const conectar = require("../../repository/config");
+const conectar = require("../../database/db");
 
 module.exports = (lease, callback) => {
   const connection = conectar((connection, err) => {
@@ -22,7 +22,7 @@ module.exports = (lease, callback) => {
         if (res.length != 0) {
           const error = new Error();
           error.message = "Lease is already registered";
-          error.httpStatusCode = 400;
+          error.httpStatusCode = 422;
           return callback(null, error);
         } else {
           connection.query(
