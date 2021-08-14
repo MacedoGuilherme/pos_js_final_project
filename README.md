@@ -284,7 +284,7 @@ Altera as informações cadastradas de um cliente.
 ```
 {
     "name": "Guilherme",
-    "cpf": "06401410990",
+    "cpf": "25239111081",
     "email": "gui@gmail.com",
     "phone": "(41) 88888-8888"
 }
