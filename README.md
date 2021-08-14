@@ -41,7 +41,7 @@ $ npm start
 
 ## Banco de dados
 
-Para a criação do banco de dados, basta acessar a pasta Database do projeto e utilizar o script do arquivo Locadora.sql.
+Para a criação do banco de dados, basta acessar a pasta Database do projeto e utilizar o script do arquivo locadora.sql.
 
 Caso seja necessário alterar alguma informação para conexão ao banco de dados, basta editar o arquivo db.js localizado na pasta ./database
 
