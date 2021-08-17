@@ -1,6 +1,6 @@
 <h1  align="center">💵 Locação de jogos</h1>
 
-<p>Este projeto é um simples sistema de locação de jogos desenvolvido em NodeJS, possibilitando o cadastro de clientes, jogos e locações.</p>
+<p>Este projeto é um simples sistema de locação de jogos desenvolvido em NodeJS, possibilitando o cadastro e listagem de clientes, jogos e locações.</p>
 
 
 ## Requisitos
@@ -41,7 +41,7 @@ $ npm start
 
 ## Banco de dados
 
-Para a criação do banco de dados, basta acessar a pasta Database do projeto e utilizar o script do arquivo locadora.sql.
+Para a criação do banco de dados, basta acessar a pasta database do projeto e utilizar o script do arquivo locadora.sql.
 
 Caso seja necessário alterar alguma informação para conexão ao banco de dados, basta editar o arquivo db.js localizado na pasta ./database
 
@@ -187,7 +187,7 @@ status  |    descrição                |             response body
 
 ### GET /listgameplatform/:platform
 
-Retorna os jogos cadastrados ordenados por plataforma.
+Retorna os jogos cadastrados, ordenados por plataforma.
 
 #### Retorno:
 ```
