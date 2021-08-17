@@ -332,7 +332,7 @@ status | descrição
 
 status  |    descrição                    |             response body
 --------|---------------------------------|--------------------------------------------------------------------------
-404     |    locação não cadastrada       |             "message": "register not f
+404     |    locação não cadastrada       |             "message": "register not found"
 
 
 ## Integrantes
